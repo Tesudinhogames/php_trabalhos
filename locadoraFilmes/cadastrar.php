@@ -13,9 +13,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $telefone = $_POST['telefone'];
 
         $comando = "insert into usuarios(nome_usuario, nascimento, endereco, telefone) value 
-        ('$usuario', '$nascimento', '$endereco', '$telefone')";
+        (?,?,?,?)";
 
-        $conexao->query($comando);
+        $insert = $conexao->prepare($comando);
+
+    $insert->bind_param("ssss", $usuario, $nascimento, $endereco, $telefone);
+
+    $insert->execute();
+       
 
 }
     if(isset($_POST['criar-filme']))
@@ -25,9 +30,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $genero = $_POST['genero-filme'];
 
         $comando = "insert into filmes(nome_filme, genero_filme, ano_lancamento) value 
-        ('$filme','$genero','$lancamento')";
+        (?,?,?)";
 
-        $conexao->query($comando);
+        $insert = $conexao->prepare($comando);
+
+        $insert->bind_param("ssi", $filme, $genero, $lancamento);
+
+        $insert->execute();
     }
 
 }
