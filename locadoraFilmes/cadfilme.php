@@ -15,17 +15,17 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4><a href=""></a></h4>
+                            <h4><a href="locadora.php" class="btn btn-danger float-end">Voltar</a></h4>
                         </div>
                         <div class="card-body">
-                            <form action="cadastrar.php" method="post">
+                            <form action="" method="post">
                                 <div class="mb3">
                                     <label for="">Nome do Filme</label>
                                     <input type="text" name="nome-filme" class="form-control">
                                 </div>
                                  <div class="mb3">
                                     <label for="">Ano de lançamento</label>
-                                    <input type="date" name="ano-lancamento" class="form-control">
+                                    <input type="number" placeholder="yyyy" title="digite o ano em que o filme lançou" name="ano-lancamento" class="form-control">
                                 </div>
                                  <div class="mb3">
                                     <label for="">Gênero do filme</label>
@@ -42,6 +42,31 @@
             </div>
         </div>
 
+        <?php 
+        if($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+        if(isset($_POST['criar-filme']))
+    {
+        require "conexao.php";
+
+        $filme = $_POST['nome-filme'];
+        $lancamento = $_POST['ano-lancamento'];
+        $genero = $_POST['genero-filme'];
+
+        $comando = "insert into filmes(nome_filme, genero_filme, ano_lancamento) value 
+        (?,?,?)";
+
+        $insert = $conexao->prepare($comando);
+
+        $insert->bind_param("ssi", $filme, $genero, $lancamento);
+
+        $insert->execute();
+        
+    }
+}
+        ?>
+
+     
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

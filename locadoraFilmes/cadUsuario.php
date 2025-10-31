@@ -15,10 +15,10 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4><a href=""></a></h4>
+                            <h4><a href="locadora.php" class="btn btn-danger float-end">Voltar</a></h4>
                         </div>
                         <div class="card-body">
-                            <form action="cadastrar.php" method="post">
+                            <form action="" method="post">
                                 <div class="mb3">
                                     <label for="">Nome do usuário</label>
                                     <input type="text" name="nome-usuario" class="form-control">
@@ -45,6 +45,30 @@
                 </div>
             </div>
         </div>
+
+        <?php 
+           if($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+            if(isset($_POST['criar-usuario']))
+{
+        require 'conexao.php';
+
+        $usuario = $_POST['nome-usuario'];
+        $nascimento = $_POST['data-nascimento'];
+        $endereco = $_POST['endereco'];
+        $telefone = $_POST['telefone'];
+
+        $comando = "insert into usuarios(nome_usuario, nascimento, endereco, telefone) value 
+        (?,?,?,?)";
+
+        $insert = $conexao->prepare($comando);
+
+    $insert->bind_param("ssss", $usuario, $nascimento, $endereco, $telefone);
+
+    $insert->execute();
+}
+           }
+        ?>
 
         
 

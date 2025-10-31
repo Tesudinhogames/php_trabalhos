@@ -2,7 +2,7 @@
 
 $usuario = "root";
 $servidor = "localhost";
-$senha = "";
+$senha = "Minecraft1234@";
 
 $conexao = mysqli_connect($servidor, $usuario, $senha) or die ("Falha ao conectar");
 
@@ -26,7 +26,7 @@ $conexao->select_db("locadoradavi");
     id_filme INT AUTO_INCREMENT PRIMARY KEY,
     nome_filme VARCHAR(100),
     genero_filme VARCHAR(50),
-    ano_lancamento INT;
+    ano_lancamento INT
     )";
 
     $conexao->query($query);
